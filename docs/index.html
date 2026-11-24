@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learning Radar: courses, training and degrees in the Nordics, Europe and online</title>
+<meta name="description" content="Find free and paid courses, professional training, vocational qualifications and degrees in Finland, Sweden, Norway, Germany and online, ranked for career growth. Updated three times a week.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2F1EC; --panel:#FBFBF8; --ink:#17201D; --muted:#5E6762; --line:#D5D8D1;
+  --acc:#0F766E; --acc-soft:#D5ECE8; --warm:#B45309; --warm-soft:#FBE8CF; --blue:#1D4E89; --blue-soft:#DCE7F5;
+  --red:#B42318; --red-soft:#FBE1DE;
+  --display:"Bricolage Grotesque","IBM Plex Sans",system-ui,sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --paper:#111715; --panel:#18201D; --ink:#E7EDE9; --muted:#9DA8A2; --line:#2F3A35;
+  --acc:#5EC8BB; --acc-soft:#16332F; --warm:#F4B366; --warm-soft:#3A2A14; --blue:#8DB6EE; --blue-soft:#1C2B40;
+  --red:#F59A8F; --red-soft:#3F1C18;
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 15px/1.5 var(--body)}
+a{color:var(--blue)}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header.top{padding:28px 0 6px;display:flex;flex-wrap:wrap;gap:14px 28px;align-items:flex-end;justify-content:space-between}
+h1{font:700 clamp(28px,4.4vw,44px)/1.05 var(--display);letter-spacing:-.02em;margin:0}
+.sub{color:var(--muted);margin:6px 0 0;max-width:66ch}
+.stats{display:flex;gap:22px;flex-wrap:wrap}
+.stat b{display:block;font:700 26px/1 var(--display);font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:13px}
+.goals{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0 4px}
+@media (max-width:900px){.goals{grid-template-columns:repeat(2,1fr)}}
+.goal{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-align:left;cursor:pointer}
+.goal b{display:block;font:600 16px/1.25 var(--display)}
+.goal span{color:var(--muted);font-size:13px}
+.goal[aria-pressed=true]{border-color:var(--acc);background:var(--acc-soft);box-shadow:inset 0 0 0 1px var(--acc)}
+nav.tabs{display:flex;gap:4px;margin-top:14px;border-bottom:1px solid var(--line)}
+nav.tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px;cursor:pointer;font-weight:500;color:var(--muted)}
+nav.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--acc)}
+.layout{display:grid;grid-template-columns:250px 1fr;gap:28px;padding:20px 0 60px}
+@media (max-width:860px){.layout{grid-template-columns:1fr;gap:10px}}
+aside h2{font:700 14.5px/1.2 var(--display);margin:18px 0 6px;display:flex;justify-content:space-between}
+aside h2:first-child{margin-top:0}
+.pick{display:flex;justify-content:space-between;gap:8px;width:100%;text-align:left;background:none;border:0;border-radius:5px;padding:4px 8px;cursor:pointer;font-size:14px}
+.pick:hover{background:var(--line)}
+.pick[aria-pressed=true]{background:var(--acc-soft);font-weight:600}
+.pick span:last-child{color:var(--muted);font-variant-numeric:tabular-nums}
+.pick.zero{opacity:.45}
+.ftoggle{display:none}
+@media (max-width:860px){
+  .ftoggle{display:block;width:100%;text-align:left;cursor:pointer;font-weight:600;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+  .facets{display:none;margin-top:8px}
+  .facets.open{display:block}
+}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px}
+.bar input[type=search]{flex:1;min-width:200px;padding:9px 11px;border:1px solid var(--line);border-radius:7px;background:var(--panel)}
+.bar select{padding:8px;border:1px solid var(--line);border-radius:7px;background:var(--panel)}
+.count{color:var(--muted);font-size:13.5px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:99px;padding:3px 10px;font-size:13px;cursor:pointer}
+.chip::after{content:" ×";color:var(--muted)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;margin-bottom:11px;display:grid;grid-template-columns:52px 1fr;gap:14px}
+.score{text-align:center}
+.score b{display:block;font:700 22px/1 var(--display);font-variant-numeric:tabular-nums}
+.meter{height:5px;border-radius:3px;background:var(--line);margin-top:6px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--acc)}
+.card h3{font:600 17.5px/1.3 var(--display);margin:0 0 3px}
+.card h3 a{color:var(--ink);text-decoration:none}
+.card h3 a:hover{text-decoration:underline}
+.who{color:var(--muted);font-size:14px;margin:0 0 8px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.tag{font-size:12px;padding:2px 8px;border-radius:99px;background:var(--line);color:var(--ink)}
+.tag.free{background:var(--acc-soft);color:var(--acc);font-weight:600}
+.tag.paid{background:var(--warm-soft);color:var(--warm);font-weight:600}
+.tag.new{background:var(--blue-soft);color:var(--blue);font-weight:600}
+.tag.soon{background:var(--red-soft);color:var(--red);font-weight:600}
+.summary{margin:2px 0 6px}
+.note{color:var(--muted);font-size:13.5px;margin:4px 0}
+.why{color:var(--muted);font-size:13px;margin:6px 0 0}
+.acts{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--paper);border-radius:6px;padding:5px 11px;cursor:pointer;font-size:13.5px;text-decoration:none;color:var(--ink)}
+.btn.primary{background:var(--acc);border-color:var(--acc);color:#fff}
+@media (prefers-color-scheme:dark){.btn.primary{color:#0b1412}}
+.btn[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.more{display:block;margin:16px auto;padding:9px 18px}
+.empty{color:var(--muted);padding:30px 0}
+.page{padding:22px 0 60px;max-width:860px}
+.page h2{font:700 20px/1.2 var(--display);margin:26px 0 8px}
+.page h2:first-child{margin-top:0}
+table.health{border-collapse:collapse;width:100%;font-size:14px}
+table.health td,table.health th{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+.ok{color:var(--acc);font-weight:600}.err{color:var(--red);font-weight:600}
+footer{color:var(--muted);font-size:13px;padding:0 0 40px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Learning Radar</h1>
+      <p class="sub" id="sub">Courses, professional training, vocational qualifications and degrees in Finland, Sweden, Norway, Germany and online, ranked by what they can do for your career.</p>
+    </div>
+    <div class="stats" id="stats"></div>
+  </header>
+  <div class="goals" id="goals" role="group" aria-label="What are you looking for?"></div>
+  <nav class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="explore">Explore</button>
+    <button role="tab" aria-selected="false" data-tab="plan">My plan <span id="planN"></span></button>
+    <button role="tab" aria-selected="false" data-tab="help">How to study for free</button>
+    <button role="tab" aria-selected="false" data-tab="sources">Sources</button>
+  </nav>
+  <div id="view"><p class="empty">Loading…</p></div>
+  <footer id="foot"></footer>
+</div>
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeUrl = u => /^https?:\/\//i.test(u || "") ? u : "#";
+const KEY = "learning-radar:plan";
+const PAGE = 30;
+const LANG = {en:"English", fi:"Finnish", sv:"Swedish", no:"Norwegian", de:"German", fr:"French", es:"Spanish"};
+const WHERE = {nordic:"Nordic countries", fi:"Finland", se:"Sweden", no:"Norway", de:"Germany", online:"Online"};
+const COUNTRY = {fi:"Finland", se:"Sweden", no:"Norway", de:"Germany"};
+const NORDIC = ["Finland", "Sweden", "Norway", "Denmark", "Iceland"];
+const COSTF = {free:"Free or publicly funded", learnfree:"Free to learn (certificate may cost)", paid:"Paid"};
+const SHOW = {
+  new:["New this week", o => o.is_new], soon:["Deadline in 3 weeks", o => o.closing_soon],
+  apply:["Apply or start now", o => o.status === "open" || o.status === "anytime"],
+  jotpa:["Jotpa-funded (working adults)", o => has(o.tags, "jotpa")],
+  unemployed:["For jobseekers", o => has(o.tags, "unemployed")],
+  higher_vocational:["Higher vocational (YH, fagskole)", o => has(o.tags, "higher_vocational")],
+  folk:["Folk high schools", o => has(o.tags, "folk_high_school")],
+  part_time:["Part-time", o => has(o.tags, "part_time")],
+  open_university:["Open university", o => has(o.tags, "open_university")],
+  micro:["Micro-credentials", o => has(o.tags, "micro")],
+  evening:["Evening or weekend", o => has(o.tags, "evening")],
+};
+const LEVELS = {beginner:"Beginner", intermediate:"Intermediate", advanced:"Advanced", bachelor:"Bachelor's", master:"Master's", "bachelor+master":"Bachelor's + master's", doctorate:"Doctorate"};
+const GOAL_HINT = {
+  "":"Everything, best first", upskill:"Short courses, certifications, continuing education",
+  change:"Qualifications, retraining, professional certificates", degree:"Bachelor's, master's and doctoral programmes",
+  learn:"Free online and open university courses",
+};
+const has = (xs, x) => (xs || []).includes(x);
+let DATA = null, tab = "explore", shown = PAGE, filtersOpen = false;
+let F = {goal:"", where:"", cost:"", kind:"", topic:"", lang:"", level:"", show:"", q:"", sort:"score"};
+function loadPlan(){ try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e){ return {}; } }
+function storePlan(){ try { localStorage.setItem(KEY, JSON.stringify(PLAN)); } catch(e){} }
+let PLAN = loadPlan();
+
+// Filters live in the URL hash, so a filtered view can be bookmarked or shared.
+function readHash(){
+  const p = new URLSearchParams(location.hash.slice(1));
+  for (const k of Object.keys(F)) if (p.has(k)) F[k] = p.get(k);
+  if (p.has("tab")) tab = p.get("tab");
+}
+function writeHash(){
+  const p = new URLSearchParams();
+  for (const [k, v] of Object.entries(F)) if (v && !(k === "sort" && v === "score")) p.set(k, v);
+  if (tab !== "explore") p.set("tab", tab);
+  const h = p.toString();
+  history.replaceState(null, "", h ? "#" + h : location.pathname + location.search);
+}
+
+const TESTS = {
+  goal: (o, v) => has(o.goals, v),
+  where: (o, v) => v === "online" ? !!o.online : v === "nordic" ? NORDIC.includes(o.country) : o.country === COUNTRY[v],
+  cost: (o, v) => v === "free" ? ["free","funded","free_eu"].includes(o.cost)
+                : v === "learnfree" ? ["free","funded","free_eu","audit"].includes(o.cost)
+                : ["paid","varies","unknown"].includes(o.cost),
+  kind: (o, v) => o.kind === v,
+  topic: (o, v) => o.topic === v || has(o.topics, v),
+  lang: (o, v) => has(o.languages, v),
+  level: (o, v) => o.level === v,
+  show: (o, v) => SHOW[v] ? SHOW[v][1](o) : true,
+};
+function textOf(o){
+  return o._t || (o._t = [o.title, o.provider, o.city, o.summary, (o.topics||[]).join(" "), o.cost_note].join(" ").toLowerCase());
+}
+function match(o, skip){
+  for (const k in TESTS) if (k !== skip && F[k] && !TESTS[k](o, F[k])) return false;
+  if (F.q && skip !== "q"){ const t = textOf(o); for (const w of F.q.toLowerCase().split(/\s+/)) if (w && !t.includes(w)) return false; }
+  return true;
+}
+function filtered(){
+  let xs = DATA.offers.filter(o => match(o));
+  const by = {
+    deadline: (a, b) => (a.deadline || "9999").localeCompare(b.deadline || "9999") || b.score - a.score,
+    newest: (a, b) => (b.first_seen || "").localeCompare(a.first_seen || "") || b.score - a.score,
+    credits: (a, b) => (b.credits || 0) - (a.credits || 0) || b.score - a.score,
+    title: (a, b) => a.title.localeCompare(b.title),
+  }[F.sort];
+  if (by) xs = xs.slice().sort(by);
+  return xs;
+}
+// Counts for one facet given every other active filter.
+function counts(facet, keys){
+  const c = Object.fromEntries(keys.map(k => [k, 0]));
+  for (const o of DATA.offers){
+    if (!match(o, facet)) continue;
+    for (const k of keys) if (TESTS[facet](o, k)) c[k]++;
+  }
+  return c;
+}
+function pickList(facet, entries, title){
+  const keys = entries.map(e => e[0]);
+  const c = counts(facet, keys);
+  const total = DATA.offers.filter(o => match(o, facet)).length;
+  const rows = entries.filter(([k]) => c[k] > 0 || F[facet] === k);
+  if (!rows.length) return "";
+  return `<h2>${esc(title)}</h2>
+    <button class="pick" data-f="${facet}" data-v="" aria-pressed="${!F[facet]}"><span>Any</span><span>${total.toLocaleString()}</span></button>
+    ${rows.map(([k, label]) => `<button class="pick${c[k] ? "" : " zero"}" data-f="${facet}" data-v="${esc(k)}" aria-pressed="${F[facet] === k}"><span>${esc(label)}</span><span>${c[k].toLocaleString()}</span></button>`).join("")}`;
+}
+
+function fmtDate(iso){
+  if (!/^\d{4}-\d{2}(-\d{2})?$/.test(iso || "")) return iso || "";
+  const d = new Date(iso.length === 7 ? iso + "-01" : iso);
+  return d.toLocaleDateString(undefined, iso.length === 7 ? {month:"short", year:"numeric"} : {day:"numeric", month:"short", year:"numeric"});
+}
+function daysTo(iso){ return Math.round((new Date(iso) - new Date(new Date().toDateString())) / 864e5); }
+function place(o){
+  const bits = [];
+  if (o.city) bits.push(o.city);
+  if (o.country) bits.push(o.country);
+  const p = bits.join(", ");
+  return o.online ? (o.country ? `Online or ${p}` : "Online") : p;
+}
+function card(o, rank){
+  const free = ["free","funded","free_eu"].includes(o.cost), paid = o.cost === "paid";
+  const status = {open:"Application open", upcoming:"Application opens soon", anytime:"Start any time"}[o.status] || "";
+  const tags = [
+    o.is_new ? `<span class="tag new">New</span>` : "",
+    o.deadline ? `<span class="tag${o.closing_soon ? " soon" : ""}">Deadline ${esc(fmtDate(o.deadline))}${o.closing_soon ? ` (${daysTo(o.deadline)} d)` : ""}</span>` : "",
+    `<span class="tag ${free ? "free" : paid ? "paid" : ""}">${esc(DATA.costs[o.cost] || o.cost)}</span>`,
+    `<span class="tag">${esc(DATA.kinds[o.kind] || o.kind)}</span>`,
+    o.level ? `<span class="tag">${esc(LEVELS[o.level] || o.level)}</span>` : "",
+    o.credits ? `<span class="tag">${o.credits} ECTS</span>` : (o.duration ? `<span class="tag">${esc(o.duration)}</span>` : ""),
+    o.credits && o.duration && !/ECTS/.test(o.duration) ? `<span class="tag">${esc(o.duration)}</span>` : "",
+    (o.languages || []).length ? `<span class="tag">${esc(o.languages.map(l => LANG[l] || l).join(", "))}</span>` : "",
+    status ? `<span class="tag">${status}</span>` : "",
+    o.starts && !/^\d{4}-\d{2}/.test(o.starts) ? `<span class="tag">Starts: ${esc(o.starts)}</span>` : (o.starts ? `<span class="tag">Starts ${esc(fmtDate(o.starts))}</span>` : ""),
+    ...(o.tags || []).filter(t => t.startsWith("rated")).map(t => `<span class="tag">${esc(t)}</span>`),
+  ].join("");
+  const saved = !!PLAN[o.id];
+  return `<article class="card">
+    <div class="score"><b>${Math.round(o.score)}</b><div class="meter"><i style="width:${Math.min(100, o.score)}%"></i></div></div>
+    <div>
+      <h3><a href="${esc(safeUrl(o.url))}" target="_blank" rel="noopener">${esc(o.title)}</a></h3>
+      <p class="who">${esc([o.provider, place(o)].filter(Boolean).join(" · "))}</p>
+      <div class="tags">${tags}</div>
+      ${o.summary ? `<p class="summary">${esc(o.summary)}</p>` : ""}
+      ${o.cost_note ? `<p class="note">${esc(o.cost_note)}</p>` : ""}
+      <p class="why">${esc((o.reasons || []).join(" · "))}</p>
+      <div class="acts">
+        <a class="btn primary" href="${esc(safeUrl(o.url))}" target="_blank" rel="noopener">Open course page</a>
+        <button class="btn" data-save="${esc(o.id)}" aria-pressed="${saved}">${saved ? "In my plan" : "Add to my plan"}</button>
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderGoals(){
+  const entries = [["", "Show everything"], ...Object.entries(DATA.goals)];
+  $("#goals").innerHTML = entries.map(([k, label]) =>
+    `<button class="goal" data-goal="${k}" aria-pressed="${F.goal === k}"><b>${esc(label)}</b><span>${esc(GOAL_HINT[k] || "")}</span></button>`).join("");
+}
+
+function renderExplore(){
+  const xs = filtered();
+  const kinds = Object.entries(DATA.kinds);
+  const langs = ["en","fi","sv","no","de"].map(l => [l, LANG[l]]);
+  const activeF = Object.entries(F).filter(([k, v]) => v && !["sort","goal","q"].includes(k));
+  const active = activeF.length;
+  const chips = activeF.map(([k, v]) => {
+    const label = k === "where" ? WHERE[v] : k === "cost" ? COSTF[v] : k === "kind" ? DATA.kinds[v] : k === "lang" ? LANG[v]
+      : k === "level" ? LEVELS[v] : k === "show" ? SHOW[v][0] : v;
+    return `<button class="chip" data-f="${k}" data-v="">${esc(label)}</button>`;
+  }).join("");
+  $("#view").innerHTML = `<div class="layout">
+    <aside><button class="ftoggle" id="ftoggle" aria-expanded="${filtersOpen}">${filtersOpen ? "Hide filters" : "Filters"}${active ? ` (${active})` : ""}</button>
+      <div class="facets${filtersOpen ? " open" : ""}">
+      ${pickList("where", Object.entries(WHERE), "Where")}
+      ${pickList("cost", Object.entries(COSTF), "Cost")}
+      ${pickList("show", Object.entries(SHOW).map(([k, v]) => [k, v[0]]), "Show only")}
+      ${pickList("kind", kinds, "Type")}
+      ${pickList("topic", DATA.topics.map(t => [t, t]), "Field")}
+      ${pickList("lang", langs, "Language")}
+      ${pickList("level", Object.entries(LEVELS), "Level")}
+    </div></aside>
+    <main>
+      <div class="bar">
+        <input type="search" id="q" placeholder="Search: data analyst, nursing, Python, Helsinki, Göteborg, Jotpa…" value="${esc(F.q)}" aria-label="Search">
+        <select id="sort" aria-label="Sort">
+          <option value="score">Best opportunity first</option><option value="deadline">Deadline soonest</option>
+          <option value="newest">Newest first</option><option value="credits">Most credits</option><option value="title">A to Z</option>
+        </select>
+        <span class="count">${xs.length.toLocaleString()} of ${DATA.offers.length.toLocaleString()}</span>
+      </div>
+      ${chips ? `<div class="chips">${chips}</div>` : ""}
+      ${xs.length ? xs.slice(0, shown).map(card).join("") : `<p class="empty">Nothing matches. Try removing a filter.</p>`}
+      ${xs.length > shown ? `<button class="btn more" id="more">Show ${Math.min(PAGE, xs.length - shown)} more</button>` : ""}
+    </main></div>`;
+  $("#sort").value = F.sort;
+  let timer;
+  $("#q").addEventListener("input", e => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { F.q = e.target.value; shown = PAGE; const p = e.target.selectionStart; render(); const el = $("#q"); el.focus(); el.setSelectionRange(p, p); }, 180);
+  });
+  $("#sort").addEventListener("change", e => { F.sort = e.target.value; shown = PAGE; render(); });
+  const m = $("#more"); if (m) m.onclick = () => { shown += PAGE; render(); };
+  $("#ftoggle").onclick = () => { filtersOpen = !filtersOpen; render(); };
+}
+
+function planMarkdown(){
+  return Object.values(PLAN).sort((a, b) => (a.deadline || "9999").localeCompare(b.deadline || "9999")).map(o =>
+    `- [${o.title}](${o.url}) (${[o.provider, place(o), DATA.costs[o.cost] || o.cost, o.deadline ? "deadline " + o.deadline : ""].filter(Boolean).join(", ")})`).join("\n");
+}
+function renderPlan(){
+  const xs = Object.values(PLAN).sort((a, b) => (a.deadline || "9999").localeCompare(b.deadline || "9999"));
+  $("#view").innerHTML = `<div class="page" style="max-width:none">
+    <div class="bar"><span class="count">${xs.length} saved, soonest deadline first. Kept in this browser only.</span>
+      ${xs.length ? `<button class="btn" id="copy">Copy as a list</button><button class="btn" id="clear">Clear all</button>` : ""}</div>
+    ${xs.length ? xs.map(card).join("") : `<p class="empty">Add courses from the Explore tab to build your study plan and keep their deadlines in one place.</p>`}
+  </div>`;
+  const c = $("#copy"); if (c) c.onclick = async () => { try { await navigator.clipboard.writeText(planMarkdown()); c.textContent = "Copied"; } catch(e){ c.textContent = "Copy failed"; } };
+  const k = $("#clear"); if (k) k.onclick = () => { if (confirm("Remove everything from your plan?")) { PLAN = {}; storePlan(); render(); } };
+}
+
+function renderHelp(){
+  const n = (fn) => DATA.offers.filter(fn).length.toLocaleString();
+  const go = (h, label) => `<a href="#${h}" data-hash="${h}">${label}</a>`;
+  $("#view").innerHTML = `<div class="page">
+    <h2>In Finland</h2>
+    <p><b>Jotpa-funded training.</b> The Service Centre for Continuous Learning and Employment (Jotpa) funds short training for working-age adults in fields that need skilled people. It is free or low cost and often online or in the evening. ${go("show=jotpa", n(o => has(o.tags, "jotpa")) + " open now")}.</p>
+    <p><b>Labour market training.</b> If you are registered as a jobseeker, retraining bought by the employment services is free and you can usually keep your unemployment benefit while you study. Ask your employment office before applying. ${go("show=unemployed", n(o => has(o.tags, "unemployed")) + " listed")}.</p>
+    <p><b>Open university.</b> Universities and universities of applied sciences sell single courses with no entry requirements, for a small fee per credit. The credits count towards a degree later. ${go("show=open_university", n(o => has(o.tags, "open_university")) + " open now")}.</p>
+    <p><b>Vocational qualifications.</b> Vocational colleges run initial, further and specialist qualifications for adults, often free and with continuous admission. ${go("kind=vocational", n(o => o.kind === "vocational") + " listed")}.</p>
+    <p><b>Degrees.</b> Bachelor's and master's programmes are free for EU/EEA citizens; others pay tuition for programmes taught in English. Most open for application in the joint application periods in January and March.</p>
+    <p><b>MOOC.fi.</b> The University of Helsinki's free online courses (Elements of AI, programming, cyber security), many worth university credits. ${go("q=mooc.fi", n(o => o.source === "moocfi") + " courses")}.</p>
+    <h2>In Sweden</h2>
+    <p><b>Higher vocational education (yrkeshögskola, YH).</b> Job-focused programmes of six months to two years, planned with employers, with no tuition and eligible for Swedish student aid (CSN). Many are online. ${go("where=se&show=higher_vocational", n(o => o.country === "Sweden" && has(o.tags, "higher_vocational")) + " listed")}.</p>
+    <p><b>Labour market training.</b> Arbetsförmedlingen buys retraining for registered jobseekers, free of charge. ${go("where=se&show=unemployed", n(o => o.country === "Sweden" && has(o.tags, "unemployed")) + " listed")}.</p>
+    <p><b>Folk high schools.</b> No tuition; you may pay for materials, meals or housing. ${go("where=se&show=folk", n(o => o.country === "Sweden" && has(o.tags, "folk_high_school")) + " listed")}.</p>
+    <p><b>Universities.</b> Free for EU/EEA and Swiss citizens; others pay tuition. Apply at antagning.se (Swedish) or universityadmissions.se (English). Many single courses are online and part-time. ${go("where=se&lang=en", n(o => o.country === "Sweden" && has(o.languages, "en")) + " taught in English")}.</p>
+    <h2>In Norway</h2>
+    <p><b>Universities and university colleges.</b> State institutions charge no tuition to EU/EEA and Swiss citizens, only a small semester fee; since 2023 students from elsewhere pay tuition. Private institutions set their own fees. Most programmes are applied for through Samordna opptak in the spring. ${go("where=no&kind=degree", n(o => o.country === "Norway" && o.kind === "degree") + " programmes")}.</p>
+    <p><b>Vocational colleges (fagskole).</b> Practical higher vocational programmes of six months to two years, many part-time or online. Public ones are usually free. ${go("where=no&kind=vocational", n(o => o.country === "Norway" && o.kind === "vocational") + " listed")}.</p>
+    <h2>In Germany</h2>
+    <p>Public universities charge no tuition for most programmes; students pay a semester contribution of a few hundred euros, which usually includes a public transport ticket. Baden-Württemberg charges tuition to students from outside the EU. Many master's programmes are taught in English. ${go("where=de&kind=degree&lang=en", n(o => o.country === "Germany" && o.kind === "degree" && has(o.languages, "en")) + " degree programmes in English")}.</p>
+    <h2>Online, from anywhere</h2>
+    <p>Microsoft Learn's learning paths and Applied Skills assessments are free; certification exams cost a fee. FutureLearn lets you join most courses free with limited access. Coursera's certificates need a subscription, with a free trial. ${go("where=online&cost=free", n(o => o.online && ["free","funded","free_eu"].includes(o.cost)) + " free online options")}.</p>
+    <p class="note">Rules and funding change. Always check the provider's page and, for benefits, your employment office or Kela, before you apply.</p>
+  </div>`;
+}
+
+function renderSources(){
+  const f = DATA.funnel;
+  $("#view").innerHTML = `<div class="page">
+    <p>${f.collected.toLocaleString()} offers collected → ${f.duplicates.toLocaleString()} duplicates and ${f.excluded} excluded → ${f.below_score.toLocaleString()} below the score cut → ${f.capped.toLocaleString()} over a source's cap → <b>${f.shown.toLocaleString()} shown</b>.</p>
+    <table class="health"><tr><th>Source</th><th>Status</th><th>Fetched</th><th>Shown</th><th>Detail</th></tr>
+    ${DATA.sources.map(s => `<tr><td>${esc(s.name)}</td><td class="${s.ok ? "ok" : "err"}">${s.ok ? "OK" : "Failed"}</td><td>${s.fetched.toLocaleString()}</td><td>${s.shown.toLocaleString()}</td><td>${esc(s.error || s.detail)}</td></tr>`).join("")}
+    </table>
+    <h2>How the score works</h2>
+    <p>Each offer gets 0 to 100 from five things: what you walk away with (a degree or qualification counts most, then a certification, then credits), what it costs (free and publicly funded first), how wanted its field is, whether you can apply or start now, and whether it fits around a job (online, self-paced, evenings). New offers and close deadlines get a few extra points. The reasons under each card show what counted.</p>
+  </div>`;
+}
+
+function render(){
+  document.querySelectorAll("nav.tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === tab));
+  $("#planN").textContent = Object.keys(PLAN).length ? `(${Object.keys(PLAN).length})` : "";
+  renderGoals();
+  ({explore: renderExplore, plan: renderPlan, help: renderHelp, sources: renderSources})[tab]();
+  writeHash();
+}
+
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-tab]"); if (t){ tab = t.dataset.tab; render(); return; }
+  const g = e.target.closest("[data-goal]"); if (g){ F.goal = g.dataset.goal; shown = PAGE; tab = "explore"; render(); return; }
+  const p = e.target.closest("[data-f]"); if (p){ F[p.dataset.f] = p.dataset.v; shown = PAGE; render(); return; }
+  const h = e.target.closest("[data-hash]");
+  if (h){ e.preventDefault(); location.hash = h.dataset.hash; scrollTo(0, 0); return; }   // hashchange renders
+  const v = e.target.closest("[data-save]");
+  if (v){
+    const id = v.dataset.save;
+    if (PLAN[id]) delete PLAN[id];
+    else { const o = DATA.offers.find(x => x.id === id); if (o){ const {_t, ...rest} = o; PLAN[id] = rest; } }
+    storePlan(); render();
+  }
+});
+
+const DEFAULTS = {...F};
+// A pasted or clicked link with filters in the hash (writeHash uses replaceState, which does not fire this).
+addEventListener("hashchange", () => {
+  F = {...DEFAULTS}; tab = "explore"; readHash(); shown = PAGE;
+  if (DATA) render();
+});
+readHash();
+fetch("courses.json", {cache: "no-store"}).then(r => r.json()).then(d => {
+  DATA = d;
+  const xs = d.offers;
+  $("#sub").textContent = `Courses, professional training, vocational qualifications and degrees in Finland, Sweden, Norway, Germany and online, ranked by what they can do for your career. Updated ${new Date(d.generated_at).toLocaleDateString(undefined, {day:"numeric", month:"long", year:"numeric"})} from ${d.sources.length} sources.`;
+  $("#stats").innerHTML = `<div class="stat"><b>${xs.length.toLocaleString()}</b><span>options</span></div>
+    <div class="stat"><b>${xs.filter(o => ["free","funded","free_eu"].includes(o.cost)).length.toLocaleString()}</b><span>free or funded</span></div>
+    <div class="stat"><b>${d.new_this_week.toLocaleString()}</b><span>new this week</span></div>
+    <div class="stat"><b>${d.closing_soon.toLocaleString()}</b><span>deadlines in 3 weeks</span></div>`;
+  $("#foot").innerHTML = `Data from Opintopolku (Studyinfo.fi), Skolverket (Susa-navet), Utdanning.no, DAAD, FutureLearn, Coursera, Microsoft Learn and MOOC.fi. Costs, dates and eligibility come from each provider's listing and can change: check the course page before you apply.`;
+  render();
+}).catch(() => { $("#view").innerHTML = `<p class="empty">No data yet. Run the workflow once (Actions → Learning radar → Run workflow).</p>`; });
+</script>
+</body>
+</html>

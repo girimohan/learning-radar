@@ -1,0 +1,178 @@
+# Everything you are likely to tune lives in this file.
+# Edit, commit, and the next scheduled run picks it up.
+
+# Fields people study for. Each offer is matched against these keywords (title counts most, then the
+# provider's own subject labels, then the description). Every field whose keywords appear is listed on the
+# offer; the best weight is used for ranking. "weight" (0-1) is how strongly the field lifts an offer: use it
+# to favour fields with good job prospects. A keyword ending in * matches any word that starts with it,
+# which is how Finnish inflections are caught ("ohjelmoi*" matches ohjelmointi, ohjelmoinnin...).
+topics:
+  - name: Software & IT
+    weight: 1.0
+    any: [systemutveckl*, programvaru*, programvare*, informatikk*, datateknik*, dataingenjör*, dataingeniør*, webbutveckl*, webutvikl*, it-drift*, software, programming, programmer, developer, web development, coding, python, java, javascript,
+          typescript, ict, information technology, information and communication, computer science, devops,
+          full stack, frontend, backend, mobile development, game development, ohjelmoi*, ohjelmisto*,
+          tietotekn*, tietojenkäsittel*, tieto- ja viestintätekniikka, koodaus*, web-kehit*, it-tuki*,
+          it support, linux, github, .net, c#, dotnet]
+  - name: Data & AI
+    weight: 1.0
+    any: [dataanalys*, dataanalyse*, maskininlärning*, maskinlæring*, kunstig intelligens, artificiell intelligens, datavetenskap*, data science, data scientist, data analysis, data analyst, data analytics, data engineering,
+          machine learning, deep learning, artificial intelligence, ai, generative ai, big data, analytics,
+          statistics, power bi, sql, business intelligence, tekoäly*, koneoppi*, data-analy*, datatiet*,
+          tilastotie*, analytiik*, elements of ai, llm, prompt]
+  - name: Cybersecurity
+    weight: 1.0
+    any: [informationssäkerhet*, informasjonssikkerhet*, cybersäkerhet*, cybersikkerhet*, cybersecurity, cyber security, information security, security operations, ethical hacking,
+          penetration testing, siem, kyberturvallisuu*, tietoturva*, kyber*]
+  - name: Cloud & infrastructure
+    weight: 0.95
+    any: [cloud, azure, aws, google cloud, kubernetes, docker, networking, network engineer, pilvipalvelu*,
+          pilvi*, tietoverkko*, verkkotekn*, microsoft 365, dynamics 365, power platform, sap]
+  - name: Health & social care
+    weight: 1.0
+    any: [sjuksköterske*, sykepleie*, undersköterska*, helsefag*, vårdadministr*, omsorg*, hälso*, helse*, barnmorsk*, jordmor*, medisin*, socionom*, vernepleie*, nursing, nurse, healthcare, health care, social care, social work, elderly care, care worker,
+          mental health, medicine, medical, pharmacy, physiotherapy, dental, dentistry, public health,
+          midwife, paramedic, sairaanhoi*, lähihoi*, hoitotyö*, hoitaja*, terveydenhuol*, terveys*,
+          sosiaalial*, sosiaality*, vanhustyö*, ikääntyneiden*, mielenterv*, hoiva*, kuntoutu*, fysioterap*,
+          ensihoi*, kätilö*, health and welfare, welfare, health]
+  - name: Education & early childhood
+    weight: 0.85
+    any: [lärarutbildning*, lærerutdanning*, grunnskolelærer*, förskollärar*, barnehagelærer*, teacher, teaching, pedagogy, pedagogical, education, early childhood, special education, opettaj*,
+          pedagog*, varhaiskasvat*, opetus*, kasvatus*, erityisopet*, ohjaaja*, school assistant,
+          koulunkäynnin*]
+  - name: Business & management
+    weight: 0.85
+    any: [ekonomi*, økonomi*, ledarskap*, ledelse*, redovisning*, regnskap*, administrasjon*, företagsekonomi*, business, management, leadership, manager, project management, entrepreneurship, entrepreneur,
+          human resources, hr, accounting, finance, financial, economics, administration, mba, procurement,
+          johtami*, esihen*, liiketoim*, liiketalo*, yrittäj*, henkilöstö*, kirjanpi*, taloushallin*,
+          talous*, projektinhallin*, hankin*, business, administration and law, kauppa*]
+  - name: Marketing, sales & communication
+    weight: 0.75
+    any: [marknadsföring*, markedsføring*, kommunikasjon*, kommunikation*, marketing, digital marketing, sales, social media, branding, brand, communication, communications,
+          journalism, content creation, seo, customer service, markkinoin*, myynti*, viestin*, asiakaspalvel*,
+          some*, sosiaalinen media, journalism and information]
+  - name: Engineering & manufacturing
+    weight: 0.95
+    any: [ingenjör*, ingeniør*, byggteknik*, byggingeniør*, elektroteknik*, elkraft*, maskinteknik*, maskiningeniør*, automationsteknik*, engineering, engineer, mechanical, electrical, electronics, automation, manufacturing, construction,
+          civil engineering, robotics, welding, machining, maintenance, industrial, architecture, insinöör*,
+          konetekn*, sähkö*, automaatio*, rakenta*, rakennus*, hitsa*, koneistu*, kunnossapi*, valmistu*,
+          tuotantotekn*, teollisuu*, arkkitehtuuri*, engineering and engineering trades]
+  - name: Green transition & energy
+    weight: 0.95
+    any: [energiteknik*, hållbar*, bærekraft*, fornybar*, förnybar*, miljøteknologi*, miljöteknik*, sustainability, sustainable, renewable, energy, climate, circular economy, battery, batteries,
+          hydrogen, environmental, environment, solar, wind power, carbon, bioeconomy, kestävä*, kestävyy*,
+          energia*, ilmasto*, kiertotalou*, akku*, uusiutuv*, ympäristö*, vety*, aurinkoenerg*, tuulivoim*,
+          biotalou*]
+  - name: Logistics & transport
+    weight: 0.8
+    any: [logistik*, lagerlogistik*, transportledning*, logistics, supply chain, transport, driver, truck, bus driver, warehouse, shipping, aviation,
+          logistiik*, kuljetu*, kuljettaj*, ajoneuvo*, varasto*, linja-auto*, yhdistelmäajoneuvo*,
+          transport services]
+  - name: Hospitality, food & services
+    weight: 0.75
+    any: [restaurang*, reiseliv*, turism*, kokk*, hospitality, restaurant, tourism, cook, chef, catering, cleaning, hairdresser, beauty, security guard,
+          matkailu*, ravintola*, kokki*, ruokapalvel*, siivo*, puhtaanapi*, kampaa*, kauneudenhoi*,
+          vartija*, turvallisuusal*, personal services, security services]
+  - name: Languages & integration
+    weight: 0.9
+    any: [svenska som andraspråk, sfi, norsk som andrespråk, finnish language, learn finnish, finnish for, swedish language, german language, english language,
+          language course, language skills, integration, finnish as a second language, suomen kiel*, s2,
+          ruotsin kiel*, englannin kiel*, kotoutu*, kielikoulutus*, kieliopin*, languages, german as,
+          intensive german, academic german, sprachkurs]
+  - name: Design, media & arts
+    weight: 0.75
+    any: [grafisk*, spelutveckl*, spillutvikl*, musik*, design, ux, ui design, user experience, graphic design, media, game design, art, arts, music,
+          film, photography, animation, fashion, muotoilu*, graafi*, pelisuunnit*, valokuva*, musiikki*,
+          taide*, elokuva*, media-ala*, arts and humanities]
+  - name: Law & public sector
+    weight: 0.7
+    any: [juridik*, rättsvetenskap*, rettsvitenskap*, statsvetenskap*, jus, law, legal, public administration, policy, governance, juridi*, oikeustie*, oikeus*, hallinto*,
+          julkishallin*]
+  - name: Agriculture & forestry
+    weight: 0.75
+    any: [landbruk*, jordbruk*, lantbruk*, skogsbruk*, trädgård*, agriculture, farming, forestry, horticulture, food production, veterinary, maatalou*, metsä*,
+          puutarha*, eläin*, elintarvike*, agriculture, forestry, fisheries and veterinary]
+  - name: Science & research
+    weight: 0.7
+    any: [matemati*, fysik*, kemi*, biology, chemistry, physics, mathematics, research methods, natural sciences, astronomy, space,
+          biologi*, kemia*, fysiik*, matematiik*, luonnontiet*, natural sciences, mathematics and statistics]
+
+# Offers that match no field still appear (for "learn something new"), with this weight.
+untopical_weight: 0.5
+
+# Titles containing these words are dropped.
+exclude_title: [demo, test course, testikurssi, "(archived)", retired]
+
+scoring:
+  # Each part is 0-1; the score is their weighted sum (weights should add up to 1), times 100.
+  credential: 0.28     # what you walk away with: degree > qualification > certification > credits > nothing
+  cost: 0.30           # free and publicly funded first, free-to-audit next, fees last
+  field: 0.22          # the matched field's weight (above)
+  timing: 0.12         # you can apply now, or start any time, beats "opens later"
+  flexibility: 0.08    # online, evening/weekend, or self-paced fits people who work
+  new_bonus: 4         # extra points for offers first seen in the last 7 days
+  closing_bonus: 4     # extra points when the deadline is within 21 days
+
+# Offers below this score are dropped. Most land between 35 and 85.
+min_score: 30
+# The dashboard gets at most this many offers (the best ones). Each source is capped too (below).
+max_items: 13000
+new_days: 7          # "new" means first seen this many days ago or less
+closing_days: 21     # "closing soon" means the deadline is this close
+
+digest:
+  top_new: 15
+  top_free_finland: 12
+  top_closing: 12
+  top_degrees: 8
+
+# --------------------------------------------------------------------------- sources
+sources:
+  opintopolku:
+    # All Finnish education: universities, universities of applied sciences, open university, vocational
+    # colleges, Jotpa-funded free training, labour market training, folk high schools...
+    enabled: true
+    page_size: 200
+    delay_seconds: 3          # pause between requests, to be gentle with a public service
+    windows: [open, upcoming] # open = application open now, upcoming = opens within 30 days
+    skip_types: [lk, taiteen-perusopetus, vaativan-tuen-koulutukset, tuva-erityisopetus]
+    max_items: 4000
+  daad:
+    # Degree programmes, language courses and summer schools in Germany (the DAAD database of
+    # international programmes; most are taught in English, public universities usually charge no tuition).
+    enabled: true
+    page_size: 500
+    max_items: 2600
+  futurelearn:
+    # Online courses from European (mostly UK) universities and institutions.
+    enabled: true
+    max_items: 1200
+  coursera:
+    # Specialisations and Professional Certificates (multi-course programmes aimed at a job role).
+    # include_courses adds the ~26,000 single courses as well; that makes the dashboard much bigger.
+    enabled: true
+    include_courses: false
+    max_items: 1000
+  mslearn:
+    # Microsoft Learn: free learning paths, free Applied Skills credentials, and certifications (paid exam).
+    enabled: true
+    learning_paths: 250       # the most popular N learning paths
+    max_items: 450
+  sweden:
+    # Skolverket's Susa-navet: university courses and programmes (HS), higher vocational education (YH, free),
+    # labour market training (AUB) and folk high schools (FHS). University runs are only read when added or
+    # updated in the last hs_days days (there are ~64,000 in all).
+    enabled: true
+    school_types: [HS, YH, AUB, FHS]
+    hs_days: 60
+    max_items: 3500
+    max_per_group: {HS: 2000}   # university runs, so YH, labour market training and folk high schools keep room
+  norway:
+    # Utdanning.no: higher education programmes in the national admission, and vocational colleges (fagskole).
+    enabled: true
+    fagskole: true
+    max_items: 2200
+  moocfi:
+    # MOOC.fi, the University of Helsinki's free online courses (Elements of AI, programming, ...).
+    enabled: true
+    max_items: 150
