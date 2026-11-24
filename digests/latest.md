@@ -1,12 +1,13 @@
 # Learning radar, 2026-11-24
 
-10,306 courses, training programmes and degrees worth a look, out of 21,051 collected. 1 are new this week and 80 have a deadline in the next three weeks.
+10,307 courses, training programmes and degrees worth a look, out of 21,052 collected. 2 are new this week and 80 have a deadline in the next three weeks.
 
 **[Open the dashboard](https://girimohan.github.io/learning-radar/)** to filter by goal, field, cost, place and language.
 
 ## New this week
 
 - 🇫🇮 **[Kauppatieteet: Yritysjuridiikka (avoin yliopisto-opetus)](https://opintopolku.fi/konfo/fi/koulutus/1.2.246.562.13.00000000000000005925)**, University of Turku · Course · Paid · Online (Turku, Finland) · **72**
+- 🇫🇮 **[Kompleksisen traumatisoitumisen psykoterapeuttinen hoito (30 op)](https://opintopolku.fi/konfo/fi/koulutus/1.2.246.562.13.00000000000000013310)**, Helsingin seudun kesäyliopisto · Course · Paid · Helsinki, Finland · **60**
 
 ## Deadlines coming up
 
