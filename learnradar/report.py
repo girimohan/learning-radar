@@ -1,7 +1,7 @@
 """The weekly digest: a Markdown page that becomes a GitHub issue (GitHub emails it to you)."""
 from __future__ import annotations
 
-FLAG = {"Finland": "🇫🇮", "Sweden": "🇸🇪", "Norway": "🇳🇴", "Germany": "🇩🇪"}
+FLAG = {"Finland": "🇫🇮", "Sweden": "🇸🇪", "Norway": "🇳🇴"}
 
 
 def _line(o: dict, costs: dict, kinds: dict) -> str:

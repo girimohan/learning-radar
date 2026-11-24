@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learning Radar: courses, training and degrees in the Nordics, Europe and online</title>
-<meta name="description" content="Find free and paid courses, professional training, vocational qualifications and degrees in Finland, Sweden, Norway, Germany and online, ranked for career growth. Updated three times a week.">
+<meta name="description" content="Find free and paid courses, professional training, vocational qualifications and degrees in Finland, Sweden, Norway and online, ranked for career growth. Updated three times a week.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -75,6 +75,15 @@ aside h2:first-child{margin-top:0}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
 .tag{font-size:12px;padding:2px 8px;border-radius:99px;background:var(--line);color:var(--ink)}
 .tag.free{background:var(--acc-soft);color:var(--acc);font-weight:600}
+.tag.en{background:var(--blue-soft);color:var(--blue);font-weight:600}
+.enbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:10px 0 0;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.enbar.on{border-color:var(--blue);background:var(--blue-soft)}
+.switch{position:relative;width:44px;height:24px;border-radius:99px;border:0;background:var(--line);cursor:pointer;flex:none}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .15s}
+.switch[aria-checked=true]{background:var(--blue)}
+.switch[aria-checked=true]::after{left:23px}
+.enbar label{font-weight:600;cursor:pointer}
+.enbar span{color:var(--muted);font-size:13.5px}
 .tag.paid{background:var(--warm-soft);color:var(--warm);font-weight:600}
 .tag.new{background:var(--blue-soft);color:var(--blue);font-weight:600}
 .tag.soon{background:var(--red-soft);color:var(--red);font-weight:600}
@@ -102,11 +111,12 @@ footer{color:var(--muted);font-size:13px;padding:0 0 40px}
   <header class="top">
     <div>
       <h1>Learning Radar</h1>
-      <p class="sub" id="sub">Courses, professional training, vocational qualifications and degrees in Finland, Sweden, Norway, Germany and online, ranked by what they can do for your career.</p>
+      <p class="sub" id="sub">Courses, professional training, vocational qualifications and degrees in Finland, Sweden, Norway and online, ranked by what they can do for your career.</p>
     </div>
     <div class="stats" id="stats"></div>
   </header>
   <div class="goals" id="goals" role="group" aria-label="What are you looking for?"></div>
+  <div class="enbar" id="enbar"></div>
   <nav class="tabs" role="tablist">
     <button role="tab" aria-selected="true" data-tab="explore">Explore</button>
     <button role="tab" aria-selected="false" data-tab="plan">My plan <span id="planN"></span></button>
@@ -123,8 +133,8 @@ const safeUrl = u => /^https?:\/\//i.test(u || "") ? u : "#";
 const KEY = "learning-radar:plan";
 const PAGE = 30;
 const LANG = {en:"English", fi:"Finnish", sv:"Swedish", no:"Norwegian", de:"German", fr:"French", es:"Spanish"};
-const WHERE = {nordic:"Nordic countries", fi:"Finland", se:"Sweden", no:"Norway", de:"Germany", online:"Online"};
-const COUNTRY = {fi:"Finland", se:"Sweden", no:"Norway", de:"Germany"};
+const WHERE = {nordic:"Nordic countries", fi:"Finland", se:"Sweden", no:"Norway", online:"Online"};
+const COUNTRY = {fi:"Finland", se:"Sweden", no:"Norway"};
 const NORDIC = ["Finland", "Sweden", "Norway", "Denmark", "Iceland"];
 const COSTF = {free:"Free or publicly funded", learnfree:"Free to learn (certificate may cost)", paid:"Paid"};
 const SHOW = {
@@ -241,7 +251,7 @@ function card(o, rank){
     o.level ? `<span class="tag">${esc(LEVELS[o.level] || o.level)}</span>` : "",
     o.credits ? `<span class="tag">${o.credits} ECTS</span>` : (o.duration ? `<span class="tag">${esc(o.duration)}</span>` : ""),
     o.credits && o.duration && !/ECTS/.test(o.duration) ? `<span class="tag">${esc(o.duration)}</span>` : "",
-    (o.languages || []).length ? `<span class="tag">${esc(o.languages.map(l => LANG[l] || l).join(", "))}</span>` : "",
+    (o.languages || []).length ? `<span class="tag${has(o.languages, "en") ? " en" : ""}">${has(o.languages, "en") ? "Taught in English" + (o.languages.length > 1 ? " (and " + o.languages.filter(l => l !== "en").map(l => LANG[l] || l).join(", ") + ")" : "") : esc(o.languages.map(l => LANG[l] || l).join(", "))}</span>` : "",
     status ? `<span class="tag">${status}</span>` : "",
     o.starts && !/^\d{4}-\d{2}/.test(o.starts) ? `<span class="tag">Starts: ${esc(o.starts)}</span>` : (o.starts ? `<span class="tag">Starts ${esc(fmtDate(o.starts))}</span>` : ""),
     ...(o.tags || []).filter(t => t.startsWith("rated")).map(t => `<span class="tag">${esc(t)}</span>`),
@@ -264,6 +274,18 @@ function card(o, rank){
   </article>`;
 }
 
+function renderEnglish(){
+  const on = F.lang === "en";
+  const n = DATA.offers.filter(o => match(o, "lang") && has(o.languages, "en")).length;
+  const bar = $("#enbar");
+  bar.className = "enbar" + (on ? " on" : "");
+  bar.innerHTML = `<button class="switch" id="enSwitch" role="switch" aria-checked="${on}" aria-labelledby="enLabel"></button>
+    <label id="enLabel" for="enSwitch">Only courses taught in English</label>
+    <span>${n.toLocaleString()} match your other choices. For international students and anyone not yet fluent in Finnish, Swedish or Norwegian.</span>`;
+  $("#enSwitch").onclick = () => { F.lang = on ? "" : "en"; shown = PAGE; tab = tab === "explore" || tab === "plan" ? tab : "explore"; render(); };
+  $("#enLabel").onclick = e => { e.preventDefault(); $("#enSwitch").click(); };
+}
+
 function renderGoals(){
   const entries = [["", "Show everything"], ...Object.entries(DATA.goals)];
   $("#goals").innerHTML = entries.map(([k, label]) =>
@@ -273,7 +295,7 @@ function renderGoals(){
 function renderExplore(){
   const xs = filtered();
   const kinds = Object.entries(DATA.kinds);
-  const langs = ["en","fi","sv","no","de"].map(l => [l, LANG[l]]);
+  const langs = ["en","fi","sv","no"].map(l => [l, LANG[l]]);
   const activeF = Object.entries(F).filter(([k, v]) => v && !["sort","goal","q"].includes(k));
   const active = activeF.length;
   const chips = activeF.map(([k, v]) => {
@@ -335,6 +357,8 @@ function renderHelp(){
   const n = (fn) => DATA.offers.filter(fn).length.toLocaleString();
   const go = (h, label) => `<a href="#${h}" data-hash="${h}">${label}</a>`;
   $("#view").innerHTML = `<div class="page">
+    <h2>Studying in English</h2>
+    <p>Switch on <b>Only courses taught in English</b> above to see only courses where English is a teaching language. In Finland, a programme run by several schools counts if at least one version is taught in English; its card says so. Degrees taught in English are free for EU/EEA citizens in Finland and Sweden, and at state institutions in Norway; students from elsewhere usually pay tuition and can often apply for a scholarship from the university. ${go("lang=en&goal=degree", n(o => o.kind === "degree" && has(o.languages, "en")) + " degrees")}, ${go("lang=en&cost=free", n(o => has(o.languages, "en") && ["free","funded","free_eu"].includes(o.cost)) + " free or funded options")} in English.</p>
     <h2>In Finland</h2>
     <p><b>Jotpa-funded training.</b> The Service Centre for Continuous Learning and Employment (Jotpa) funds short training for working-age adults in fields that need skilled people. It is free or low cost and often online or in the evening. ${go("show=jotpa", n(o => has(o.tags, "jotpa")) + " open now")}.</p>
     <p><b>Labour market training.</b> If you are registered as a jobseeker, retraining bought by the employment services is free and you can usually keep your unemployment benefit while you study. Ask your employment office before applying. ${go("show=unemployed", n(o => has(o.tags, "unemployed")) + " listed")}.</p>
@@ -350,8 +374,6 @@ function renderHelp(){
     <h2>In Norway</h2>
     <p><b>Universities and university colleges.</b> State institutions charge no tuition to EU/EEA and Swiss citizens, only a small semester fee; since 2023 students from elsewhere pay tuition. Private institutions set their own fees. Most programmes are applied for through Samordna opptak in the spring. ${go("where=no&kind=degree", n(o => o.country === "Norway" && o.kind === "degree") + " programmes")}.</p>
     <p><b>Vocational colleges (fagskole).</b> Practical higher vocational programmes of six months to two years, many part-time or online. Public ones are usually free. ${go("where=no&kind=vocational", n(o => o.country === "Norway" && o.kind === "vocational") + " listed")}.</p>
-    <h2>In Germany</h2>
-    <p>Public universities charge no tuition for most programmes; students pay a semester contribution of a few hundred euros, which usually includes a public transport ticket. Baden-Württemberg charges tuition to students from outside the EU. Many master's programmes are taught in English. ${go("where=de&kind=degree&lang=en", n(o => o.country === "Germany" && o.kind === "degree" && has(o.languages, "en")) + " degree programmes in English")}.</p>
     <h2>Online, from anywhere</h2>
     <p>Microsoft Learn's learning paths and Applied Skills assessments are free; certification exams cost a fee. FutureLearn lets you join most courses free with limited access. Coursera's certificates need a subscription, with a free trial. ${go("where=online&cost=free", n(o => o.online && ["free","funded","free_eu"].includes(o.cost)) + " free online options")}.</p>
     <p class="note">Rules and funding change. Always check the provider's page and, for benefits, your employment office or Kela, before you apply.</p>
@@ -374,6 +396,7 @@ function render(){
   document.querySelectorAll("nav.tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === tab));
   $("#planN").textContent = Object.keys(PLAN).length ? `(${Object.keys(PLAN).length})` : "";
   renderGoals();
+  renderEnglish();
   ({explore: renderExplore, plan: renderPlan, help: renderHelp, sources: renderSources})[tab]();
   writeHash();
 }
@@ -403,12 +426,13 @@ readHash();
 fetch("courses.json", {cache: "no-store"}).then(r => r.json()).then(d => {
   DATA = d;
   const xs = d.offers;
-  $("#sub").textContent = `Courses, professional training, vocational qualifications and degrees in Finland, Sweden, Norway, Germany and online, ranked by what they can do for your career. Updated ${new Date(d.generated_at).toLocaleDateString(undefined, {day:"numeric", month:"long", year:"numeric"})} from ${d.sources.length} sources.`;
+  $("#sub").textContent = `Courses, professional training, vocational qualifications and degrees in Finland, Sweden, Norway and online, ranked by what they can do for your career. Updated ${new Date(d.generated_at).toLocaleDateString(undefined, {day:"numeric", month:"long", year:"numeric"})} from ${d.sources.length} sources.`;
   $("#stats").innerHTML = `<div class="stat"><b>${xs.length.toLocaleString()}</b><span>options</span></div>
     <div class="stat"><b>${xs.filter(o => ["free","funded","free_eu"].includes(o.cost)).length.toLocaleString()}</b><span>free or funded</span></div>
+    <div class="stat"><b>${xs.filter(o => has(o.languages, "en")).length.toLocaleString()}</b><span>taught in English</span></div>
     <div class="stat"><b>${d.new_this_week.toLocaleString()}</b><span>new this week</span></div>
     <div class="stat"><b>${d.closing_soon.toLocaleString()}</b><span>deadlines in 3 weeks</span></div>`;
-  $("#foot").innerHTML = `Data from Opintopolku (Studyinfo.fi), Skolverket (Susa-navet), Utdanning.no, DAAD, FutureLearn, Coursera, Microsoft Learn and MOOC.fi. Costs, dates and eligibility come from each provider's listing and can change: check the course page before you apply.`;
+  $("#foot").innerHTML = `Data from Opintopolku (Studyinfo.fi), Skolverket (Susa-navet), Utdanning.no, FutureLearn, Coursera, Microsoft Learn and MOOC.fi. Costs, dates and eligibility come from each provider's listing and can change: check the course page before you apply.`;
   render();
 }).catch(() => { $("#view").innerHTML = `<p class="empty">No data yet. Run the workflow once (Actions → Learning radar → Run workflow).</p>`; });
 </script>

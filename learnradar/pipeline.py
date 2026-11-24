@@ -8,11 +8,11 @@ from pathlib import Path
 
 from . import classify, scoring
 from .models import COSTS, GOALS, KINDS, Offer
-from .sources import SourceResult, coursera, daad, futurelearn, moocfi, mslearn, norway, opintopolku, sweden
+from .sources import SourceResult, coursera, futurelearn, moocfi, mslearn, norway, opintopolku, sweden
 from .text import has_keyword, norm_title
 
 SOURCES = {
-    "opintopolku": opintopolku.fetch, "sweden": sweden.fetch, "norway": norway.fetch, "daad": daad.fetch,
+    "opintopolku": opintopolku.fetch, "sweden": sweden.fetch, "norway": norway.fetch,
     "futurelearn": futurelearn.fetch,
     "coursera": coursera.fetch, "mslearn": mslearn.fetch, "moocfi": moocfi.fetch,
 }

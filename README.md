@@ -1,7 +1,7 @@
 # Learning Radar
 
 Finds courses, professional training, vocational qualifications and degrees that can lift a career, in
-Finland, Sweden, Norway, Germany and online, and ranks them so the free, recognised and open-now options come first. Built on
+Finland, Sweden, Norway and online, and ranks them so the free, recognised and open-now options come first. Built on
 the same pattern as [remote-job-radar](https://github.com/girimohan/remote-job-radar) and
 [viral-news-radar](https://github.com/girimohan/viral-news-radar).
 
@@ -12,7 +12,7 @@ It is for anyone who wants to **upskill in their job**, **change career**, **get
 
 | | |
 |---|---|
-| **Dashboard** | `docs/index.html`, served by GitHub Pages. Pick a goal, then filter by place (all Nordic countries, Finland, Sweden, Norway, Germany, online), cost (free or funded, free to learn, paid), type, field, language and level, or show only Jotpa-funded training, training for jobseekers, higher vocational education (YH, fagskole), folk high schools, part-time study, open university, micro-credentials, evening courses, new offers or close deadlines. Every card says why it ranked where it did and links to the provider's own page. **My plan** keeps a shortlist in the browser, soonest deadline first. Filtered views are in the URL, so you can share them. |
+| **Dashboard** | `docs/index.html`, served by GitHub Pages. Pick a goal and, if you need it, switch on **Only courses taught in English** (for international students). Then filter by place (all Nordic countries, Finland, Sweden, Norway, online), cost (free or funded, free to learn, paid), type, field, language and level, or show only Jotpa-funded training, training for jobseekers, higher vocational education (YH, fagskole), folk high schools, part-time study, open university, micro-credentials, evening courses, new offers or close deadlines. Every card says why it ranked where it did and links to the provider's own page. **My plan** keeps a shortlist in the browser, soonest deadline first. Filtered views are in the URL, so you can share them. |
 | **Weekly digest** | Every Monday a GitHub issue (which GitHub emails to you) lists what is new this week, deadlines in the next three weeks, free training in Finland with applications open now, free vocational training in Sweden and Norway, and degrees taught in English with no tuition. Also saved in `digests/latest.md`. |
 | **Data** | `docs/courses.json` holds the current offers. `data/seen.json` remembers when each offer was first seen, so the radar can say what is new. |
 
@@ -23,7 +23,6 @@ It is for anyone who wants to **upskill in their job**, **change career**, **get
 | **Opintopolku** (Studyinfo.fi) | Every Finnish education offer with an application open now or opening within 30 days: university and UAS degrees, open university courses, continuing education, specialisation training, vocational qualifications, Jotpa-funded training, labour market training, folk high schools. | Public konfo-backend API, about 75 requests per run with a 3-second pause between each (about five minutes). |
 | **Skolverket Susa-navet** (Sweden) | Swedish university courses and programmes still open for application (with deadlines and non-EU tuition), higher vocational education (YH, free), labour market training from Arbetsförmedlingen, and folk high schools. | Skolverket's open API, about 25 requests. University runs are read when added or updated in the last 60 days (`hs_days`). |
 | **Utdanning.no** (Norway) | About 1,400 bachelor's, master's and one-year programmes in the national admission (Samordna opptak), and about 700 vocational college (fagskole) programmes. | Public api.utdanning.no, about 15 requests. |
-| **DAAD** | About 2,500 international programmes in Germany: bachelor's, master's, doctoral, language courses and summer schools, with tuition and deadlines. | The JSON search behind daad.de's programme finder, 6 requests. |
 | **FutureLearn** | About 1,800 online courses from UK and European universities, with access model and ratings. | Its public courses feed, 1 request. |
 | **Coursera** | Specialisations and Professional Certificates (multi-course programmes aimed at a job role). | Public catalog API, about 10 requests. |
 | **Microsoft Learn** | Certifications, free Applied Skills credentials and the most popular free learning paths. | Documented Catalog API, 1 request. |
@@ -35,7 +34,7 @@ It is for anyone who wants to **upskill in their job**, **change career**, **get
 collect  ->  drop noise and duplicates  ->  match fields  ->  work out goals  ->  new / deadline soon  ->  score  ->  dashboard + digest
 ```
 
-1. **Collect** (`learnradar/sources/`). The eight sources run side by side. Opintopolku needs two kinds of
+1. **Collect** (`learnradar/sources/`). The seven sources run side by side. Opintopolku needs two kinds of
    request: a listing of offers, and one filtered query per tag (free, paid, tuition fee, Jotpa, labour market
    training, continuing education, micro-credential, open university, teaching language, online,
    evening or weekend). The listing endpoint silently ignores some filters (fees, teaching time, "opens within
@@ -103,16 +102,16 @@ python -m http.server -d docs                     # dashboard at http://localhos
 
 - Opintopolku lists offers whose application is open or opens within 30 days, not those that closed
   yesterday or open in six months. Its listing has no deadline dates, so Finnish offers are not in "closing
-  soon"; DAAD and FutureLearn give dates.
+  soon"; Sweden and FutureLearn give dates.
 - Opintopolku lists a programme once even when many schools run it (a Bachelor of Engineering in IT can have
   19 versions). Tags such as Jotpa-funded, labour market training, taught in English or online then mean "at
   least one version is", and the card says "19 versions; some are Jotpa-funded" rather than calling the whole
   programme funded. Open the course page to see each school's version.
 - Finnish degrees with no fee information are shown as free (free by law when taught in Finnish or Swedish;
   English-taught ones charge non-EU/EEA students). Costs elsewhere are what the provider's listing says.
-  "Free" degrees in Germany still have a semester contribution; Jotpa training can have a small fee. Always
+  Jotpa training can have a small fee. Always
   check the course page.
-- Countries with a national database read here: Finland, Sweden, Norway and Germany. **Denmark and Iceland
+- Countries with a national database read here: Finland, Sweden and Norway. **Denmark and Iceland
   are not included yet**: no open API for their national course catalogues was found (Danish and Icelandic
   universities do appear among the online courses). The rest of Europe is covered through online courses. Adding a country means
   adding one file in `learnradar/sources/`.
@@ -120,7 +119,12 @@ python -m http.server -d docs                     # dashboard at http://localhos
   all), so a course published earlier and never updated can be missing. Raise `sweden.hs_days` to read more.
 - Norway: Utdanning.no gives no deadlines (most programmes close in Samordna opptak in the spring). State
   institutions are marked free for EU/EEA citizens; private ones and vocational colleges are "cost not stated".
-  Programmes are assumed to be taught in Norwegian.
+  Utdanning.no does not give the teaching language: programmes with an English title are counted as taught in
+  English, the rest as Norwegian.
+- Germany (DAAD) was tried and dropped: DAAD refuses requests from GitHub's servers (HTTP 403).
+- "Taught in English" comes from each source: Opintopolku's and Skolverket's teaching-language fields, the
+  course language on the online platforms, and titles for Norway. A Finnish programme run by several schools
+  counts if at least one version is taught in English.
 - Studyportals, edX and Class Central are not used: none has an open public API to read from.
 
 ## Good citizenship

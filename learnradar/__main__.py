@@ -43,7 +43,7 @@ def cmd_run(args) -> int:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="learnradar",
-                                 description="Find courses, training and degrees in Finland, Germany and online.")
+                                 description="Find courses, training and degrees in Finland, Sweden, Norway and online.")
     sub = ap.add_subparsers(dest="cmd", required=True)
     r = sub.add_parser("run", help="collect, classify, score -> docs/courses.json + digests/latest.md")
     r.add_argument("--config", default=str(ROOT / "config.yaml"))

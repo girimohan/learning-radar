@@ -56,10 +56,10 @@ def test_new_and_closing(tmp_path):
     assert not any(o.is_new for o in xs)                         # nothing is new on the first run
     assert next(o for o in xs if o.source_id == "2").closing_soon
     later = TODAY + dt.timedelta(days=2)
-    b = [offer(1), offer(2), offer(3), offer(9, source="daad", country="Germany")]
+    b = [offer(1), offer(2), offer(3), offer(9, source="norway", country="Norway")]
     xs, _ = pipeline.process(b, CFG, later, ledger, first_run=False)
     new = {o.source_id for o in xs if o.is_new}
-    assert new == {"3"}                     # daad was never seen before: its first listing is a baseline
+    assert new == {"3"}                     # norway was never seen before: its first listing is a baseline
     assert next(o for o in xs if o.source_id == "1").first_seen == TODAY.isoformat()
     much_later = TODAY + dt.timedelta(days=20)
     xs, _ = pipeline.process(b, CFG, much_later, ledger, first_run=False)
@@ -89,7 +89,7 @@ def test_dedupe_and_exclude():
 def test_run_writes_files_and_digest(tmp_path):
     res = [SourceResult("opintopolku", offers=[offer(1, tags=["jotpa"], cost="funded"),
                                                 offer(2, kind="degree", level="master", cost="free_eu", languages=["en"])]),
-           SourceResult("daad", ok=False, error="HTTP 503")]
+           SourceResult("norway", ok=False, error="HTTP 503")]
     out = tmp_path / "docs" / "courses.json"
     payload = pipeline.run(CFG, out, today=TODAY, ledger_path=tmp_path / "seen.json", results=res)
     data = json.loads(out.read_text(encoding="utf-8"))
@@ -103,7 +103,7 @@ def test_run_refuses_when_everything_failed(tmp_path):
     import pytest
     with pytest.raises(RuntimeError):
         pipeline.run(CFG, tmp_path / "c.json", today=TODAY, ledger_path=tmp_path / "s.json",
-                     results=[SourceResult("daad", ok=False, error="down")])
+                     results=[SourceResult("norway", ok=False, error="down")])
     assert not (tmp_path / "c.json").exists()
 
 

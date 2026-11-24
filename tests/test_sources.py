@@ -1,7 +1,7 @@
 """Each source's parser, on records shaped like the real API responses (trimmed)."""
 import datetime as dt
 
-from learnradar.sources import coursera, daad, futurelearn, moocfi, mslearn, opintopolku
+from learnradar.sources import coursera, futurelearn, moocfi, mslearn, opintopolku
 
 TODAY = dt.date(2026, 11, 24)
 
@@ -97,37 +97,6 @@ def test_opintopolku_degree_level_and_finnish_fallback():
     assert o.languages == ["fi"] and o.status == "upcoming"
 
 
-DAAD = {
-    "id": 8284, "courseName": "Quantum Engineering (Master of Science)", "academy": "Leibniz University Hannover",
-    "city": "Hannover", "languages": ["English"], "beginning": "Winter semester", "programmeDuration": "4 semesters",
-    "date": [], "tuitionFees": "No tuition fees", "courseType": 2, "applicationDeadline": "Register by 30 November 2026 + 1 more",
-    "isCompleteOnlinePossible": False, "subject": "Quantum Engineering",
-    "link": "/deutschland/studienangebote/international-programmes/en/detail/8284/",
-}
-
-
-def test_daad_degree():
-    o = daad.to_offer(DAAD, TODAY)
-    assert o.kind == "degree" and o.level == "master" and o.cost == "free" and o.deadline == "2026-11-30"
-    assert o.url == "https://www2.daad.de/deutschland/studienangebote/international-programmes/en/detail/8284/"
-    assert o.languages == ["en"] and o.country == "Germany" and o.status == "scheduled"
-    assert not o.online
-    partly = daad.to_offer(dict(DAAD, isCompleteOnlinePossible=True, badgeLabel="Partly online"), TODAY)
-    assert not partly.online and "partly_online" in partly.tags     # the flag alone is not "online"
-    assert daad.to_offer(dict(DAAD, isCompleteOnlinePossible=True, badgeLabel="Fully online"), TODAY).online
-
-
-def test_daad_summer_school_fee_and_past_deadline():
-    c = dict(DAAD, id=1, courseName="Trier International Summer School", courseType=56, languages=["German"],
-             subject="German as a Technical Language", applicationDeadline=None,
-             date=[{"start": "2027-08-02", "end": "2027-08-27", "costs": 810, "registrationDeadline": "2027-07-15"}])
-    o = daad.to_offer(c, TODAY)
-    assert o.kind == "prep" and o.cost == "paid" and "810" in o.cost_note
-    assert o.starts == "2027-08-02" and o.deadline == "2027-07-15"
-    old = dict(DAAD, applicationDeadline="Register by 1 January 2026")
-    assert daad.to_offer(old, TODAY).deadline == ""     # deadlines in the past are not shown
-
-
 FL = {
     "uuid": "u1", "url": "https://www.futurelearn.com/courses/x?utm_campaign=Courses+feed&utm_source=courses-feed",
     "name": "Agentic AI Fundamentals", "introduction": "Build autonomous AI systems.", "course_level": "Introductory",
@@ -217,3 +186,12 @@ def test_norway_programmes_and_fagskole():
                                "fagskole": "Einar Granum Kunstfagskole", "studieform": ["Deltid", "Nettbasert"],
                                "studietype": "Fagskolegrad", "sted": ["Oslo"], "fagfelt": ["Kunstfag"]})
     assert f.kind == "vocational" and f.online and "part_time" in f.tags and f.source_id == "fagskole:396254"
+
+
+def test_norway_english_titles():
+    from learnradar.sources import norway
+    assert norway._languages("Master's Programme in Energy and Environment") == ["en"]
+    assert norway._languages("Bachelor of Science in Marine Engineering") == ["en"]
+    assert norway._languages("Sykepleie – Fleksibel deltidsutdanning") == ["no"]
+    assert norway._languages("Økonomi og administrasjon") == ["no"]
+    assert norway._languages("Master i ledelse") == ["no"]

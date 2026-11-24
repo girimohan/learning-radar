@@ -26,6 +26,16 @@ PUBLIC = re.compile(r"^(universitetet|uit |nord universitet|nmbu|ntnu|norges |os
 LEVEL = {"bachelor": "bachelor", "master": "master", "integrert master": "master", "ph.d.": "doctorate"}
 
 
+# Utdanning.no does not give the teaching language. Programmes with an English title (English function words,
+# no Norwegian letters) are taught in English; everything else is assumed Norwegian.
+_ENGLISH = re.compile(r"\b(programme|and|of|the|studies|master's|bachelor's)\b", re.I)
+_NORWEGIAN = re.compile(r"[æøåÆØÅ]|\b(og|i|med|til|på)\b", re.I)
+
+
+def _languages(title: str) -> list[str]:
+    return ["en"] if _ENGLISH.search(title) and not _NORWEGIAN.search(title) else ["no"]
+
+
 def _places(x: dict) -> str:
     return ", ".join([s for s in x.get("sted") or [] if s and s.lower() != "ukjent"][:2])
 
@@ -57,7 +67,7 @@ def programme_offer(x: dict) -> Offer | None:
     return Offer(
         source="norway", source_id=str(sid), title=title, url=url, provider=x.get("organisasjon", ""),
         country="Norway", city=_places(x), kind=kind, level=level, cost=cost,
-        cost_note=note, languages=["no"], online=bool(x.get("nettbasert")), credits=credits,
+        cost_note=note, languages=_languages(title), online=bool(x.get("nettbasert")), credits=credits,
         duration="One-year programme (60 ECTS)" if credits else "", status="scheduled", tags=tags,
         subjects=subjects[:10],
         summary=f"{x.get('studieniva', '')} programme. Apply through Samordna opptak "
@@ -79,7 +89,7 @@ def fagskole_offer(x: dict) -> Offer | None:
         source="norway", source_id="fagskole:" + x["lenke"].rstrip("/").split("/")[-1], title=title,
         url=SITE + x["lenke"], provider=x.get("fagskole", ""), country="Norway",
         city=_places(x), kind="vocational", cost="unknown",
-        cost_note="Public vocational colleges are usually free; private ones charge fees", languages=["no"],
+        cost_note="Public vocational colleges are usually free; private ones charge fees", languages=_languages(title),
         online="nett" in form, duration=x.get("studietype", ""), status="scheduled", tags=tags,
         subjects=(x.get("fagfelt") or []) + (x.get("interesse_level_2") or [])[:6],
         summary=f"{x.get('studietype', 'Fagskole')} in {', '.join(x.get('fagfelt') or []) or 'a vocational field'}.",

@@ -36,12 +36,12 @@ GOALS = {
 @dataclass
 class Offer:
     """One course, training programme, degree or certification from one source."""
-    source: str                     # "opintopolku", "daad", "futurelearn", "coursera", "mslearn", "moocfi"
+    source: str                     # "opintopolku", "sweden", "norway", "futurelearn", "coursera", "mslearn", "moocfi"
     source_id: str
     title: str
     url: str
     provider: str = ""
-    country: str = ""               # "Finland", "Germany", or "" for online-only offers
+    country: str = ""               # "Finland", "Sweden", "Norway", or "" for online-only offers
     city: str = ""
     kind: str = "course"            # a key of KINDS
     level: str = ""                 # bachelor, master, doctorate, beginner, intermediate, advanced

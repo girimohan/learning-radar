@@ -137,12 +137,6 @@ sources:
     windows: [open, upcoming] # open = application open now, upcoming = opens within 30 days
     skip_types: [lk, taiteen-perusopetus, vaativan-tuen-koulutukset, tuva-erityisopetus]
     max_items: 4000
-  daad:
-    # Degree programmes, language courses and summer schools in Germany (the DAAD database of
-    # international programmes; most are taught in English, public universities usually charge no tuition).
-    enabled: true
-    page_size: 500
-    max_items: 2600
   futurelearn:
     # Online courses from European (mostly UK) universities and institutions.
     enabled: true
