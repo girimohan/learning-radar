@@ -1,0 +1,30 @@
+name: Wrong information about a course
+description: A price, date, language or other detail in Learning Radar is wrong or out of date.
+title: "Wrong info: "
+labels: [data]
+body:
+  - type: textarea
+    id: offer
+    attributes:
+      label: Which course?
+      description: The course title and its link. Filled in for you when you use "Wrong info?" on a course.
+    validations:
+      required: true
+  - type: dropdown
+    id: what
+    attributes:
+      label: What is wrong?
+      options:
+        - Cost or funding
+        - Deadline or start date
+        - Teaching language
+        - Place or online
+        - The course has ended or the link is broken
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What should it say?
+      description: If you can, add a link to the provider's page that shows the right information. Please do not include personal details; issues are public.

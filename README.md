@@ -14,6 +14,8 @@ It is for anyone who wants to **upskill in their job**, **change career**, **get
 |---|---|
 | **Dashboard** | `docs/index.html`, served by GitHub Pages. Pick a goal and, if you need it, switch on **Only courses taught in English** (for international students). Then filter by place (all Nordic countries, Finland, Sweden, Norway, online), cost (free or funded, free to learn, paid), type, field, language and level, or show only Jotpa-funded training, training for jobseekers, higher vocational education (YH, fagskole), folk high schools, part-time study, open university, micro-credentials, evening courses, new offers or close deadlines. Every card says why it ranked where it did and links to the provider's own page. **My plan** keeps a shortlist in the browser, soonest deadline first. Filtered views are in the URL, so you can share them. |
 | **Weekly digest** | Every Monday a GitHub issue (which GitHub emails to you) lists what is new this week, deadlines in the next three weeks, free training in Finland with applications open now, free vocational training in Sweden and Norway, and degrees taught in English with no tuition. Also saved in `digests/latest.md`. |
+| **Lists for search engines** | Plain HTML pages for common searches, rebuilt on every run: free training in Finland, Jotpa training, open university, training for jobseekers (in Finnish); English-taught degrees in Finland and Sweden, free courses in English in Finland, free online courses (in English); YH, folk high schools, labour market training (in Swedish); fagskole and degrees in Norway (in Norwegian). Each is a saved dashboard filter with its top 20 and a link to the rest. Plus `sitemap.xml` and `robots.txt`. |
+| **About and privacy** | `docs/about/` (disclaimer, how the score works with the weights from `config.yaml`, sources and licences, accessibility, how to report an error) and `docs/privacy/`. Every course has a **Wrong info?** link that opens a prefilled GitHub issue form. |
 | **Data** | `docs/courses.json` holds the current offers. `data/seen.json` remembers when each offer was first seen, so the radar can say what is new. |
 
 ## Where the data comes from
@@ -95,8 +97,39 @@ pip install -r requirements-dev.txt
 python -m pytest -q
 python -m learnradar run                          # full run, about five minutes
 python -m learnradar run --sources sweden,norway  # quick partial run
+python -m learnradar site                         # rebuild the static pages only, no fetching
 python -m http.server -d docs                     # dashboard at http://localhost:8000
 ```
+
+## The website
+
+`learnradar/site.py` writes everything around the dashboard from `docs/courses.json`: the list pages, about,
+privacy, sitemap and robots, and the `<!-- site:... -->` blocks in `docs/index.html` (canonical link, share
+tags, statistics script, links to the lists). Edit the page texts in `PAGES` and `T` there. A list with fewer
+than five offers is left out until it has more. `site:` in `config.yaml` holds the address, contact details
+and statistics.
+
+### Use your own domain (for example learn.barmo.fi)
+
+Do the steps in this order; the first two stop anyone else from claiming the subdomain.
+
+1. GitHub, your profile → Settings → Pages → **Add a domain**: add `barmo.fi` and put the TXT record it shows
+   in your DNS. Wait until GitHub says it is verified.
+2. This repository → Settings → Pages → **Custom domain**: `learn.barmo.fi` → Save. GitHub adds `docs/CNAME`;
+   pull it (`git pull`).
+3. In your DNS: `learn` CNAME `girimohan.github.io.`
+4. When the DNS check passes, tick **Enforce HTTPS**.
+
+The next run (or `python -m learnradar site`, then commit) switches the canonical links, share tags, sitemap
+and digest link to the new address, because `docs/CNAME` wins over `site.url`. The old github.io address keeps
+working and redirects.
+
+### Visitor statistics
+
+Off by default. Both options use no cookies, so no cookie banner is needed. Create the site at
+[Plausible](https://plausible.io) (paid, EU-hosted, also counts clicks to course pages) or
+[GoatCounter](https://www.goatcounter.com) (free for small non-commercial sites), then set
+`site.analytics.provider` and `site.analytics.id` in `config.yaml`. The privacy page updates itself to match.
 
 ## Limits
 
@@ -126,6 +159,11 @@ python -m http.server -d docs                     # dashboard at http://localhos
   course language on the online platforms, and titles for Norway. A Finnish programme run by several schools
   counts if at least one version is taught in English.
 - Studyportals, edX and Class Central are not used: none has an open public API to read from.
+
+## Licence
+
+The code is MIT-licensed (`LICENSE`). The course data belongs to its sources: Utdanning.no's data is under
+the Norwegian licence for Open Government data (NLOD 2.0), which asks for the credit shown on the About page.
 
 ## Good citizenship
 

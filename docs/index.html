@@ -5,15 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learning Radar: courses, training and degrees in the Nordics, Europe and online</title>
 <meta name="description" content="Find free and paid courses, professional training, vocational qualifications and degrees in Finland, Sweden, Norway and online, ranked for career growth. Updated three times a week.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- site:head -->
+<link rel="canonical" href="https://girimohan.github.io/learning-radar/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230F766E'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23fff' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%23fff'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Learning Radar">
+<meta property="og:title" content="Learning Radar: courses, training and degrees in the Nordics, Europe and online">
+<meta property="og:description" content="Find free and paid courses, professional training, vocational qualifications and degrees in Finland, Sweden, Norway and online, ranked for career growth. Updated three times a week.">
+<meta property="og:url" content="https://girimohan.github.io/learning-radar/">
+<meta property="og:image" content="https://girimohan.github.io/learning-radar/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<!-- /site:head -->
 <style>
 :root{
-  --paper:#F2F1EC; --panel:#FBFBF8; --ink:#17201D; --muted:#5E6762; --line:#D5D8D1;
-  --acc:#0F766E; --acc-soft:#D5ECE8; --warm:#B45309; --warm-soft:#FBE8CF; --blue:#1D4E89; --blue-soft:#DCE7F5;
+  --paper:#F2F1EC; --panel:#FBFBF8; --ink:#17201D; --muted:#525A56; --line:#D5D8D1;
+  --acc:#0E6E66; --acc-soft:#D5ECE8; --warm:#9A4A08; --warm-soft:#FBE8CF; --blue:#1D4E89; --blue-soft:#DCE7F5;
   --red:#B42318; --red-soft:#FBE1DE;
-  --display:"Bricolage Grotesque","IBM Plex Sans",system-ui,sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif;
+  /* System fonts: nothing is loaded from other servers (see the privacy page). */
+  --display:"Segoe UI Variable Display","SF Pro Display",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root{
   --paper:#111715; --panel:#18201D; --ink:#E7EDE9; --muted:#9DA8A2; --line:#2F3A35;
@@ -103,10 +115,19 @@ aside h2:first-child{margin-top:0}
 table.health{border-collapse:collapse;width:100%;font-size:14px}
 table.health td,table.health th{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
 .ok{color:var(--acc);font-weight:600}.err{color:var(--red);font-weight:600}
-footer{color:var(--muted);font-size:13px;padding:0 0 40px}
+footer{color:var(--muted);font-size:13.5px;padding:18px 0 40px;border-top:1px solid var(--line)}
+footer p{margin:0 0 10px;max-width:90ch}
+footer a{color:inherit}
+.lists p{margin:0 0 6px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--panel);padding:8px 12px;border-radius:6px;z-index:9}
+.skip:focus{left:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.report{font-size:12.5px;color:var(--muted);margin-left:auto;align-self:center}
+.help-link{font-size:13px}
 </style>
 </head>
 <body>
+<a class="skip" href="#view">Skip to the courses</a>
 <div class="wrap">
   <header class="top">
     <div>
@@ -117,14 +138,29 @@ footer{color:var(--muted);font-size:13px;padding:0 0 40px}
   </header>
   <div class="goals" id="goals" role="group" aria-label="What are you looking for?"></div>
   <div class="enbar" id="enbar"></div>
-  <nav class="tabs" role="tablist">
-    <button role="tab" aria-selected="true" data-tab="explore">Explore</button>
-    <button role="tab" aria-selected="false" data-tab="plan">My plan <span id="planN"></span></button>
-    <button role="tab" aria-selected="false" data-tab="help">How to study for free</button>
-    <button role="tab" aria-selected="false" data-tab="sources">Sources</button>
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button role="tab" id="tab-explore" aria-controls="view" aria-selected="true" data-tab="explore">Explore</button>
+    <button role="tab" id="tab-plan" aria-controls="view" aria-selected="false" data-tab="plan">My plan <span id="planN"></span></button>
+    <button role="tab" id="tab-help" aria-controls="view" aria-selected="false" data-tab="help">How to study for free</button>
+    <button role="tab" id="tab-sources" aria-controls="view" aria-selected="false" data-tab="sources">Sources</button>
   </nav>
-  <div id="view"><p class="empty">Loading…</p></div>
-  <footer id="foot"></footer>
+  <div id="view" role="tabpanel" aria-labelledby="tab-explore" tabindex="-1"><p class="empty">Loading…</p>
+    <noscript><p>The interactive radar needs JavaScript. The lists below work without it.</p></noscript></div>
+  <p class="sr" id="status" role="status" aria-live="polite"></p>
+  <footer>
+    <div class="lists"><!-- site:links -->
+<p lang="fi"><b>Suomeksi:</b> <a href="fi/ilmaiset-koulutukset/">Ilmaiset koulutukset ja kurssit Suomessa</a> · <a href="fi/jotpa-koulutukset/">Jotpan rahoittamat koulutukset</a> · <a href="fi/avoin-yliopisto/">Avoimen yliopiston ja avoimen AMK:n kurssit</a> · <a href="fi/koulutukset-tyonhakijoille/">Koulutukset työnhakijoille</a></p>
+<p lang="en"><b>In English:</b> <a href="en/english-taught-degrees-finland/">English-taught degrees in Finland</a> · <a href="en/free-courses-in-english-finland/">Free courses and degrees in English in Finland</a> · <a href="en/english-taught-degrees-sweden/">English-taught degrees in Sweden</a> · <a href="en/free-online-courses/">Free online courses for your career</a></p>
+<p lang="sv"><b>På svenska:</b> <a href="sv/yrkeshogskola/">Yrkeshögskoleutbildningar (YH)</a> · <a href="sv/folkhogskola/">Folkhögskolekurser</a> · <a href="sv/arbetsmarknadsutbildning/">Arbetsmarknadsutbildningar</a></p>
+<p lang="nb"><b>På norsk:</b> <a href="no/fagskole/">Fagskoleutdanninger</a> · <a href="no/bachelor-og-master/">Bachelor- og masterprogrammer i Norge</a></p>
+<!-- /site:links --></div>
+    <p>Learning Radar is an independent service, not affiliated with the Finnish National Agency for Education, Skolverket or Utdanning.no.
+      Data from Opintopolku (Studyinfo.fi), Skolverket (Susa-navet), Utdanning.no (NLOD), FutureLearn, Coursera, Microsoft Learn and MOOC.fi.
+      Costs, dates and eligibility come from each provider's listing and can change: check the course page before you apply.</p>
+    <p><a href="about/">About, sources and how the score works</a> · <a href="privacy/">Privacy</a> ·
+      <a href="https://github.com/girimohan/learning-radar/issues/new?template=wrong-info.yml">Report an error</a> ·
+      <a href="https://barmo.fi/?utm_source=learning-radar&amp;utm_medium=footer">A free tool by Barmo</a></p>
+  </footer>
 </div>
 <script>
 const $ = s => document.querySelector(s);
@@ -240,6 +276,12 @@ function place(o){
   const p = bits.join(", ");
   return o.online ? (o.country ? `Online or ${p}` : "Online") : p;
 }
+const REPO = "https://github.com/girimohan/learning-radar";
+function reportUrl(o){
+  const p = new URLSearchParams({template: "wrong-info.yml", title: "Wrong info: " + o.title.slice(0, 90),
+    offer: `${o.title}\n${o.url}\n${o.id}`});
+  return `${REPO}/issues/new?${p}`;
+}
 function card(o, rank){
   const free = ["free","funded","free_eu"].includes(o.cost), paid = o.cost === "paid";
   const status = {open:"Application open", upcoming:"Application opens soon", anytime:"Start any time"}[o.status] || "";
@@ -258,17 +300,18 @@ function card(o, rank){
   ].join("");
   const saved = !!PLAN[o.id];
   return `<article class="card">
-    <div class="score"><b>${Math.round(o.score)}</b><div class="meter"><i style="width:${Math.min(100, o.score)}%"></i></div></div>
+    <div class="score" role="img" aria-label="Score ${Math.round(o.score)} out of 100"><b aria-hidden="true">${Math.round(o.score)}</b><div class="meter" aria-hidden="true"><i style="width:${Math.min(100, o.score)}%"></i></div></div>
     <div>
-      <h3><a href="${esc(safeUrl(o.url))}" target="_blank" rel="noopener">${esc(o.title)}</a></h3>
+      <h3><a href="${esc(safeUrl(o.url))}" target="_blank" rel="noopener">${esc(o.title)}<span class="sr"> (opens in a new tab)</span></a></h3>
       <p class="who">${esc([o.provider, place(o)].filter(Boolean).join(" · "))}</p>
       <div class="tags">${tags}</div>
       ${o.summary ? `<p class="summary">${esc(o.summary)}</p>` : ""}
       ${o.cost_note ? `<p class="note">${esc(o.cost_note)}</p>` : ""}
       <p class="why">${esc((o.reasons || []).join(" · "))}</p>
       <div class="acts">
-        <a class="btn primary" href="${esc(safeUrl(o.url))}" target="_blank" rel="noopener">Open course page</a>
-        <button class="btn" data-save="${esc(o.id)}" aria-pressed="${saved}">${saved ? "In my plan" : "Add to my plan"}</button>
+        <a class="btn primary" href="${esc(safeUrl(o.url))}" target="_blank" rel="noopener" aria-label="Open course page: ${esc(o.title)} (opens in a new tab)">Open course page</a>
+        <button class="btn" data-save="${esc(o.id)}" aria-pressed="${saved}" aria-label="${saved ? "In my plan" : "Add to my plan"}: ${esc(o.title)}">${saved ? "In my plan" : "Add to my plan"}</button>
+        <a class="report" href="${esc(reportUrl(o))}" target="_blank" rel="noopener">Wrong info?<span class="sr"> Report a problem with ${esc(o.title)} on GitHub</span></a>
       </div>
     </div>
   </article>`;
@@ -321,7 +364,7 @@ function renderExplore(){
           <option value="score">Best opportunity first</option><option value="deadline">Deadline soonest</option>
           <option value="newest">Newest first</option><option value="credits">Most credits</option><option value="title">A to Z</option>
         </select>
-        <span class="count">${xs.length.toLocaleString()} of ${DATA.offers.length.toLocaleString()}</span>
+        <span class="count">${xs.length.toLocaleString()} of ${DATA.offers.length.toLocaleString()} · <a class="help-link" href="about/#score">How the score works</a></span>
       </div>
       ${chips ? `<div class="chips">${chips}</div>` : ""}
       ${xs.length ? xs.slice(0, shown).map(card).join("") : `<p class="empty">Nothing matches. Try removing a filter.</p>`}
@@ -388,16 +431,31 @@ function renderSources(){
     ${DATA.sources.map(s => `<tr><td>${esc(s.name)}</td><td class="${s.ok ? "ok" : "err"}">${s.ok ? "OK" : "Failed"}</td><td>${s.fetched.toLocaleString()}</td><td>${s.shown.toLocaleString()}</td><td>${esc(s.error || s.detail)}</td></tr>`).join("")}
     </table>
     <h2>How the score works</h2>
-    <p>Each offer gets 0 to 100 from five things: what you walk away with (a degree or qualification counts most, then a certification, then credits), what it costs (free and publicly funded first), how wanted its field is, whether you can apply or start now, and whether it fits around a job (online, self-paced, evenings). New offers and close deadlines get a few extra points. The reasons under each card show what counted.</p>
+    <p><a href="about/#score">Details and weights</a>. Each offer gets 0 to 100 from five things: what you walk away with (a degree or qualification counts most, then a certification, then credits), what it costs (free and publicly funded first), how wanted its field is, whether you can apply or start now, and whether it fits around a job (online, self-paced, evenings). New offers and close deadlines get a few extra points. The reasons under each card show what counted.</p>
   </div>`;
 }
 
+// The page is redrawn on every change; put keyboard focus back on the same control afterwards.
+function focusKey(el){
+  if (!el || !el.dataset || el.classList.contains("chip")) return null;
+  if (["enSwitch", "ftoggle", "more", "sort"].includes(el.id)) return "#" + el.id;
+  if ("f" in el.dataset) return `[data-f="${CSS.escape(el.dataset.f)}"][data-v="${CSS.escape(el.dataset.v)}"]`;
+  for (const k of ["tab", "goal", "save"]) if (k in el.dataset) return `[data-${k}="${CSS.escape(el.dataset[k])}"]`;
+  return null;
+}
 function render(){
-  document.querySelectorAll("nav.tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === tab));
+  const fk = focusKey(document.activeElement);
+  draw();
+  if (fk){ const el = document.querySelector(fk); if (el) el.focus({preventScroll: true}); }
+}
+function draw(){
+  document.querySelectorAll("nav.tabs button").forEach(b => { b.setAttribute("aria-selected", b.dataset.tab === tab); b.tabIndex = b.dataset.tab === tab ? 0 : -1; });
+  $("#view").setAttribute("aria-labelledby", "tab-" + tab);
   $("#planN").textContent = Object.keys(PLAN).length ? `(${Object.keys(PLAN).length})` : "";
   renderGoals();
   renderEnglish();
   ({explore: renderExplore, plan: renderPlan, help: renderHelp, sources: renderSources})[tab]();
+  if (tab === "explore") $("#status").textContent = `${filtered().length.toLocaleString()} courses match`;
   writeHash();
 }
 
@@ -416,6 +474,15 @@ document.addEventListener("click", e => {
   }
 });
 
+// Arrow keys move between the tabs (the usual keyboard pattern for tabs).
+document.querySelector("nav.tabs").addEventListener("keydown", e => {
+  const order = ["explore", "plan", "help", "sources"];
+  const i = order.indexOf(tab), step = {ArrowRight: 1, ArrowLeft: -1}[e.key];
+  if (step === undefined && !["Home", "End"].includes(e.key)) return;
+  e.preventDefault();
+  tab = e.key === "Home" ? order[0] : e.key === "End" ? order[3] : order[(i + step + 4) % 4];
+  draw(); $("#tab-" + tab).focus();
+});
 const DEFAULTS = {...F};
 // A pasted or clicked link with filters in the hash (writeHash uses replaceState, which does not fire this).
 addEventListener("hashchange", () => {
@@ -432,7 +499,6 @@ fetch("courses.json", {cache: "no-store"}).then(r => r.json()).then(d => {
     <div class="stat"><b>${xs.filter(o => has(o.languages, "en")).length.toLocaleString()}</b><span>taught in English</span></div>
     <div class="stat"><b>${d.new_this_week.toLocaleString()}</b><span>new this week</span></div>
     <div class="stat"><b>${d.closing_soon.toLocaleString()}</b><span>deadlines in 3 weeks</span></div>`;
-  $("#foot").innerHTML = `Data from Opintopolku (Studyinfo.fi), Skolverket (Susa-navet), Utdanning.no, FutureLearn, Coursera, Microsoft Learn and MOOC.fi. Costs, dates and eligibility come from each provider's listing and can change: check the course page before you apply.`;
   render();
 }).catch(() => { $("#view").innerHTML = `<p class="empty">No data yet. Run the workflow once (Actions → Learning radar → Run workflow).</p>`; });
 </script>

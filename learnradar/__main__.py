@@ -7,7 +7,7 @@ from pathlib import Path
 
 import yaml
 
-from . import pipeline, report
+from . import pipeline, report, site
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -20,9 +20,12 @@ def cmd_run(args) -> int:
     except RuntimeError as e:
         print(e, file=sys.stderr)  # nothing is overwritten when every source is down
         return 1
+    docs = Path(args.out).parent
     d = Path(args.digest)
     d.parent.mkdir(parents=True, exist_ok=True)
-    d.write_text(report.digest(payload, args.dashboard_url, cfg), encoding="utf-8")
+    d.write_text(report.digest(payload, args.dashboard_url or site.site_url(cfg, docs), cfg), encoding="utf-8")
+    pages = site.build(cfg, docs, payload)
+    print(f"site: {len(pages)} pages written")
 
     f = payload["funnel"]
     print(f"collected {f['collected']:,} -> {f['excluded']} excluded, {f['duplicates']} duplicates, "
@@ -41,6 +44,13 @@ def cmd_run(args) -> int:
     return 0
 
 
+def cmd_site(args) -> int:
+    cfg = yaml.safe_load(Path(args.config).read_text(encoding="utf-8"))
+    pages = site.build(cfg, Path(args.docs))
+    print("\n".join(pages))
+    return 0
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="learnradar",
                                  description="Find courses, training and degrees in Finland, Sweden, Norway and online.")
@@ -53,6 +63,10 @@ def main(argv=None) -> int:
     r.add_argument("--sources", help="comma-separated subset: " + ",".join(pipeline.SOURCES))
     r.add_argument("--dashboard-url", default=os.environ.get("DASHBOARD_URL", ""))
     r.set_defaults(fn=cmd_run)
+    s = sub.add_parser("site", help="rebuild the static pages from the current docs/courses.json, without fetching")
+    s.add_argument("--config", default=str(ROOT / "config.yaml"))
+    s.add_argument("--docs", default=str(ROOT / "docs"))
+    s.set_defaults(fn=cmd_site)
     args = ap.parse_args(argv)
     return args.fn(args)
 

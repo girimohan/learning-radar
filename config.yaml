@@ -97,6 +97,19 @@ topics:
     any: [matemati*, fysik*, kemi*, biology, chemistry, physics, mathematics, research methods, natural sciences, astronomy, space,
           biologi*, kemia*, fysiik*, matematiik*, luonnontiet*, natural sciences, mathematics and statistics]
 
+# --------------------------------------------------------------------------- the website
+site:
+  # The public address. A custom domain in docs/CNAME (set in the repo's Pages settings) wins over this.
+  url: https://girimohan.github.io/learning-radar/
+  contact_email: barmo.fin@gmail.com
+  business_id: 3111862-6
+  # Cookieless visitor statistics. Leave id empty for none (the privacy page then says so).
+  #   provider: plausible   id: the site's domain in Plausible, e.g. learn.barmo.fi
+  #   provider: goatcounter id: your GoatCounter code, e.g. learning-radar for learning-radar.goatcounter.com
+  analytics:
+    provider: plausible
+    id: ""
+
 # Offers that match no field still appear (for "learn something new"), with this weight.
 untopical_weight: 0.5
 

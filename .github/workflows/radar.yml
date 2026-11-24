@@ -32,16 +32,14 @@ jobs:
       - run: pip install -r requirements-dev.txt
       - name: Tests
         run: python -m pytest -q
-      - name: Collect, classify and score
+      - name: Collect, classify and score, rebuild the pages
         id: radar
-        env:
-          DASHBOARD_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
         run: python -m learnradar run
       - name: Save results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/courses.json data/seen.json digests/latest.md
+          git add docs data/seen.json digests/latest.md
           git diff --cached --quiet || git commit -m "Radar: ${{ steps.radar.outputs.shown }} offers, ${{ steps.radar.outputs.new_this_week }} new this week"
           git push
       - name: Send the weekly digest (opens an issue, which GitHub emails to you)
