@@ -1,8 +1,12 @@
 # Learning radar, 2026-11-24
 
-10,306 courses, training programmes and degrees worth a look, out of 21,051 collected. 0 are new this week and 80 have a deadline in the next three weeks.
+10,306 courses, training programmes and degrees worth a look, out of 21,051 collected. 1 are new this week and 80 have a deadline in the next three weeks.
 
 **[Open the dashboard](https://girimohan.github.io/learning-radar/)** to filter by goal, field, cost, place and language.
+
+## New this week
+
+- 🇫🇮 **[Kauppatieteet: Yritysjuridiikka (avoin yliopisto-opetus)](https://opintopolku.fi/konfo/fi/koulutus/1.2.246.562.13.00000000000000005925)**, University of Turku · Course · Paid · Online (Turku, Finland) · **72**
 
 ## Deadlines coming up
 
@@ -61,10 +65,6 @@ Swedish higher vocational education (YH) and labour market training, folk high s
 - 🇫🇮 **[Doctoral Programme in Business and Management, LUT University](https://opintopolku.fi/konfo/en/koulutus/1.2.246.562.13.00000000000000000620)**, Lappeenranta-Lahti University of Technology LUT · Degree · Free · Online (Lappeenranta, Finland) · **96**
 - 🇫🇮 **[Tradenomi (AMK), liiketalous](https://opintopolku.fi/konfo/fi/koulutus/1.2.246.562.13.00000000000000000244)**, Laurea University of Applied Sciences + 10 more · Degree · Free · Online (Vantaa, Finland) · **96**
 - 🇫🇮 **[Doctoral Programme in Medicine, Biosciences and Biomedical Engineering (4 yrs)](https://opintopolku.fi/konfo/en/koulutus/1.2.246.562.13.00000000000000002173)**, Tampere University · Degree · Free · Tampere, Finland · **95**
-
-## Source problems
-
-- **daad**: HTTP 403 for https://www2.daad.de/deutschland/studienangebote/international-programmes/api/solr/en/search.json
 
 ---
 Costs, dates and eligibility come from each provider's listing and can change. Check the course page before you apply.
